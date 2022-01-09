@@ -1,10 +1,11 @@
 package log
 
 import (
-	"gopkg.in/natefinch/lumberjack.v2"
 	"os"
 	"path/filepath"
 	"time"
+
+	"gopkg.in/natefinch/lumberjack.v2"
 
 	"github.com/imdm/go-util/metrics"
 	"go.uber.org/zap"
@@ -108,7 +109,7 @@ func (l *Logger) consoleCore() zapcore.Core {
 	lvlEnabler := zap.LevelEnablerFunc(func(lev zapcore.Level) bool {
 		return lev >= l.level
 	})
-	return zapcore.NewCore(zapcore.NewJSONEncoder(conf), zapcore.Lock(os.Stderr), lvlEnabler)
+	return zapcore.NewCore(zapcore.NewConsoleEncoder(conf), zapcore.Lock(os.Stderr), lvlEnabler)
 }
 
 func (l *Logger) fileCore() zapcore.Core {
