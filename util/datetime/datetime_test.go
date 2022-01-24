@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	th "code.snowplus.cn/snowplus/lib/helper/datetime"
+	th "github.com/imdm/go-util/util/datetime"
 )
 
 func TestStartAndEnd(t *testing.T) {
