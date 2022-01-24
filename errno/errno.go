@@ -32,7 +32,6 @@ var (
 
 	// 12000 ~ 12999 内部账户相关错误
 	UserNotFound = register(404, 12000, "user not found", "用户不存在")
-
 )
 
 var (
@@ -74,6 +73,10 @@ func newErrNo(httpStatus int, code int32, message, prompt string) *errNo {
 		Prompt:     prompt,
 	}
 
+}
+
+func Register(httpStatus int, code int32, message, prompt string) ErrNo {
+	return register(httpStatus, code, message, prompt)
 }
 
 func register(httpStatus int, code int32, message, prompt string) ErrNo {
