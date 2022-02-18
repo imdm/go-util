@@ -49,6 +49,12 @@ func INCRBY(key string, amount int64) (int64, error) {
 	return redis.Int64(r.Do("INCRBY", key, amount))
 }
 
+func INCRBYFLOAT(key string, amount float64) (float64, error) {
+	r := redisPool.Get()
+	defer r.Close()
+	return redis.Float64(r.Do("INCRBYFLOAT", key, amount))
+}
+
 func MGET(keys []string) (map[string]interface{}, error) {
 	//r := redisPool.Get()
 	//defer r.Close()

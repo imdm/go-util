@@ -90,3 +90,15 @@ func HSETERR(name string, key, value interface{}) error {
 	_, err := r.Do("HSET", name, key, value)
 	return err
 }
+
+func HINCRBY(name string, key interface{}, amount int64) (int64, error) {
+	r := redisPool.Get()
+	defer r.Close()
+	return redis.Int64(r.Do("HINCRBY", name, key, amount))
+}
+
+func HINCRBYFLOAT(name string, key interface{}, amount float64) (float64, error) {
+	r := redisPool.Get()
+	defer r.Close()
+	return redis.Float64(r.Do("HINCRBYFLOAT", name, key, amount))
+}

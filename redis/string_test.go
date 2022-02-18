@@ -34,3 +34,14 @@ func TestSETNX(t *testing.T) {
 	wg.Wait()
 	assert.Equal(t, 1, okCount)
 }
+
+func TestINCRBYFLOAT(t *testing.T) {
+	redis.Init("127.0.0.1:6379", "", 10, 15)
+	key := "test_incrbyfloat"
+	setRe := redis.SET(key, "0.32")
+	assert.Equal(t, true, setRe)
+	value, err := redis.INCRBYFLOAT(key, 0.5)
+	assert.Empty(t, err)
+	assert.Equal(t, 0.82, value)
+	redis.DEL(key)
+}
