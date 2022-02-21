@@ -45,6 +45,22 @@ func FORCEHGETINT(name string, key interface{}) int64 {
 	return v
 }
 
+func HGETFLOAT(name string, key interface{}) (float64, error) {
+	r := redisPool.Get()
+	defer r.Close()
+	return redis.Float64(r.Do("HGET", name, key))
+}
+
+func FORCEHGETFLOAT(name string, key interface{}) float64 {
+	r := redisPool.Get()
+	defer r.Close()
+	v, err := redis.Float64(r.Do("HGET", name, key))
+	if err == redis.ErrNil {
+		return 0
+	}
+	return v
+}
+
 func HSET(name string, key, value interface{}) bool {
 	r := redisPool.Get()
 	defer r.Close()
